@@ -39,3 +39,15 @@ class MachineCountSerializer(serializers.ModelSerializer):
     class Meta:
         model = Machine
         fields = ['machine_id', 'issue_count']
+
+
+class MachineCommonSerializer(serializers.ModelSerializer):
+    word = serializers.CharField(source='issue')
+    frequency = serializers.SerializerMethodField()
+
+    def get_frequency(self, machine_issue):
+        return MachineIssue.objects.filter(issue=machine_issue.issue).count()
+
+    class Meta:
+        model = MachineIssue
+        fields = ['word', 'frequency']
