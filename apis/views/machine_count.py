@@ -8,4 +8,3 @@ from apis.serializers import MachineCountSerializer
 class MachineCountViewSet(ListModelMixin, GenericViewSet):
     queryset = Machine.objects.all()
     serializer_class = MachineCountSerializer
-    pagination_class = None
