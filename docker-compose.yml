@@ -1,0 +1,25 @@
+services:
+  postgres:
+      image: ${POSTGRES_IMAGE:-postgres:13-alpine3.17}
+      init: true
+      container_name: postgres-con
+      hostname: postgres
+    #   restart: always
+      ports:
+          - 5432:5432
+      environment:
+          - POSTGRES_USER=admin
+          - POSTGRES_PASSWORD=qwerty1234
+          - POSTGRES_DB=miniproject
+
+  pgadmin:
+      image: ${PGADMIN_IMAGE:-dpage/pgadmin4:latest}
+      init: true
+      container_name: pg-con
+      hostname: pg
+    #   restart: always
+      environment:
+          - PGADMIN_DEFAULT_EMAIL=${PGADMIN_DEFAULT_EMAIL:-admin@gmail.com}
+          - PGADMIN_DEFAULT_PASSWORD=${PGADMIN_DEFAULT_PASSWORD:-qwerty1234}
+      ports:
+          - ${PGADMIN_PORT:-5050}:80
