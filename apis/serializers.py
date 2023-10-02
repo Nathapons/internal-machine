@@ -27,3 +27,15 @@ class MachineIssueReportSerializer(serializers.ModelSerializer):
     class Meta:
         model = MachineIssue
         fields = ['id', 'machine', 'issue', 'description', 'timestamp', 'status']
+
+
+class MachineCountSerializer(serializers.ModelSerializer):
+    machine_id = serializers.IntegerField(source='id')
+    issue_count = serializers.SerializerMethodField()
+
+    def get_issue_count(self, machine):
+        return machine.machine_machine_issue.count()
+
+    class Meta:
+        model = Machine
+        fields = ['machine_id', 'issue_count']
